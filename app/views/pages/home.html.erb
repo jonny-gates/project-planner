@@ -1,2 +1,16 @@
-<h1>Pages#home</h1>
-<p>Find me in app/views/pages/home.html.erb</p>
+<% if user_signed_in? %>
+
+  <h1> Welcome, <%= current_user.email %> </h1>
+  <h2>My Lists</h2>
+
+  <%= link_to "New List", new_list_path %>
+
+  <% current_user.lists.each do |list| %>
+    <%= link_to list.name, list_path(list) %>
+  <% end %>
+
+<% else %>
+
+  <%= render '/shared/public-home' %>
+
+<% end %>
